@@ -239,8 +239,8 @@ class BaseModel:
             train_time = train_end - train_start
 
             if self.hparams.save_model and epoch % self.hparams.save_epoch == 0:
-                model_path = f'../models/weights_{int(time.time())}.h5'
-                self.model.save_weights(model_path)
+                model_path = f'../models/model_{int(time.time())}.h5'
+                self.save(model_path)
                 print(f'\n\nSaved model to path {model_path}\n\n')
 
             eval_start = time.time()
