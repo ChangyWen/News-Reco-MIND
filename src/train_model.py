@@ -66,6 +66,7 @@ if __name__ == '__main__':
     model.model.save_weights(model_path)
     print(f'Saved model to path {model_path}')
 
+    print('Running fast evaluation for prediction.txt ...')
     group_impr_indexes, group_labels, group_preds = model.run_fast_eval(
         news_filename='../data/large/MINDlarge_test/news.tsv',
         behaviors_file='../data/large/MINDlarge_test/behaviors.tsv'
