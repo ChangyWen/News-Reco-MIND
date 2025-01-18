@@ -48,9 +48,6 @@ if __name__ == '__main__':
 
     model = NAMLModel(hparams, MINDAllIterator, seed=seed)
 
-    # pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
-    # print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
-
     # model.fit(
     #     train_news_file=train_news_file,
     #     train_behaviors_file=train_behaviors_file,

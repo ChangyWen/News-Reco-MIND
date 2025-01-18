@@ -395,7 +395,13 @@ class NAMLModel(BaseModel):
 
         return model, scorer
 
+
     def save(self, model_path, scorer_path):
+        # freeze model weights in every layer
+        for layer in self.model.layers:
+            layer.trainable = False
+        for layer in self.scorer.layers:
+            layer.trainable = False
         self.model.save_weights(model_path)
         self.scorer.save_weights(scorer_path)
 
