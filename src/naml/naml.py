@@ -396,9 +396,9 @@ class NAMLModel(BaseModel):
         return model, scorer
 
     def save(self, model_path, scorer_path):
-        self.model.save(model_path)
-        self.scorer.save(scorer_path)
+        self.model.save_weights(model_path)
+        self.scorer.save_weights(scorer_path)
 
     def load(self, model_path, scorer_path):
-        self.model = load_model(model_path)
-        self.scorer = load_model(scorer_path)
+        self.model.load_weights(model_path)
+        self.scorer.load_weights(scorer_path)

@@ -47,8 +47,9 @@ if __name__ == '__main__':
     print(hparams)
 
     model = NAMLModel(hparams, MINDAllIterator, seed=seed)
-    # eval info: group_auc:0.5782, mean_mrr:0.242, ndcg@10:0.3315, ndcg@5:0.2675
-    model.model.load_weights('../models/weights_naml_1737207495.h5')
+    model_path = ''
+    scorer_path = ''
+    model.load(model_path, scorer_path)
 
     pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
     print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')

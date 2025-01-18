@@ -242,9 +242,9 @@ class BaseModel:
                 time_str = int(time.time())
                 model_path = f'../models/model_{time_str}.h5'
                 scorer_path = f'../models/scorer_{time_str}.h5'
-                self.model.save(model_path)
-                self.scorer.save(scorer_path)
-                print(f'\n\nSaved model to path {model_path} and {scorer_path}\n\n')
+                self.model.save_weights(model_path)
+                self.scorer.save_weights(scorer_path)
+                print(f'\n\nSaved model to {model_path} and {scorer_path}\n\n')
 
             eval_start = time.time()
 
