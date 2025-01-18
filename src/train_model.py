@@ -1,7 +1,8 @@
 from recommenders.models.newsrec.newsrec_utils import prepare_hparams
 from recommenders.models.newsrec.io.mind_all_iterator import MINDAllIterator
 from recommenders.models.newsrec.models.nrms import NRMSModel
-from recommenders.models.newsrec.models.naml import NAMLModel
+# from recommenders.models.newsrec.models.naml import NAMLModel
+from naml.naml import NAMLModel
 import sys
 import time
 
