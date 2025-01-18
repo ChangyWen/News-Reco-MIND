@@ -26,10 +26,10 @@ if __name__ == '__main__':
 
     train_news_file = directory + 'train/news.tsv'
     train_behaviors_file = directory + 'train/behaviors.tsv'
-    # valid_news_file = directory + 'dev/news.tsv'
-    # valid_behaviors_file = directory + 'dev/behaviors.tsv'
-    valid_news_file = f'../data/demo/MINDdemo_dev/news.tsv' # dummy
-    valid_behaviors_file = f'../data/demo/MINDdemo_dev/behaviors.tsv' # dummy
+    valid_news_file = directory + 'dev/news.tsv'
+    valid_behaviors_file = directory + 'dev/behaviors.tsv'
+    # valid_news_file = f'../data/demo/MINDdemo_dev/news.tsv' # dummy
+    # valid_behaviors_file = f'../data/demo/MINDdemo_dev/behaviors.tsv' # dummy
     test_news_file = directory + 'test/news.tsv'
     test_behaviors_file = directory + 'test/behaviors.tsv'
 
