@@ -8,9 +8,10 @@ import time
 if __name__ == '__main__':
     mind_type = sys.argv[1]
     epochs = int(sys.argv[2]) if len(sys.argv) > 2 else 10
-    body_size = int(sys.argv[3]) if len(sys.argv) > 3 else 50
-    seed = int(sys.argv[4]) if len(sys.argv) > 4 else 42
-    model_name = sys.argv[5] if len(sys.argv) > 5 else 'nrms'
+    batch_size = int(sys.argv[3]) if len(sys.argv) > 3 else 32
+    body_size = int(sys.argv[4]) if len(sys.argv) > 4 else 50
+    seed = int(sys.argv[5]) if len(sys.argv) > 5 else 42
+    model_name = sys.argv[6] if len(sys.argv) > 6 else 'nrms'
 
     directory = f'../data/{mind_type}/MIND{mind_type}_'
     yaml_file = directory + f'utils/{model_name}.yaml'
