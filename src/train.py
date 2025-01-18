@@ -12,18 +12,18 @@ if __name__ == '__main__':
     seed = int(sys.argv[4]) if len(sys.argv) > 4 else 42
     model_name = sys.argv[5] if len(sys.argv) > 5 else 'nrms'
 
-    directory = '../data/{}/'.format(mind_type)
-    yaml_file = directory + 'MIND{}_utils/{}.yaml'.format(mind_type, model_name)
-    wordEmb_file = directory + 'MIND{}_utils/embedding.npy'.format(mind_type)
-    wordDict_file = directory + 'MIND{}_utils/word_dict.pkl'.format(mind_type)
-    userDict_file = directory + 'MIND{}_utils/uid2index.pkl'.format(mind_type)
-    vertDict_file = directory + 'MIND{}_utils/vert_dict.pkl'.format(mind_type)
-    subvertDict_file = directory + 'MIND{}_utils/subvert_dict.pkl'.format(mind_type)
+    directory = f'../data/{mind_type}/MIND{mind_type}_'
+    yaml_file = directory + f'utils/{model_name}.yaml'
+    wordEmb_file = directory + 'utils/embedding.npy'
+    wordDict_file = directory + 'utils/word_dict.pkl'
+    userDict_file = directory + 'utils/uid2index.pkl'
+    vertDict_file = directory + 'utils/vert_dict.pkl'
+    subvertDict_file = directory + 'utils/subvert_dict.pkl'
 
-    train_news_file = directory + 'MIND{}_train/news.tsv'.format(mind_type)
-    train_behaviors_file = directory + 'MIND{}_train/behaviors.tsv'.format(mind_type)
-    valid_news_file = directory + 'MIND{}_dev/news.tsv'.format(mind_type)
-    valid_behaviors_file = directory + 'MIND{}_dev/behaviors.tsv'.format(mind_type)
+    train_news_file = directory + 'train/news.tsv'
+    train_behaviors_file = directory + 'train/behaviors.tsv'
+    valid_news_file = directory + 'dev/news.tsv'
+    valid_behaviors_file = directory + 'dev/behaviors.tsv'
 
     hparams = prepare_hparams(
         yaml_file=yaml_file,
@@ -54,10 +54,7 @@ if __name__ == '__main__':
         valid_news_file=valid_news_file,
         valid_behaviors_file=valid_behaviors_file
     )
-    model.model.save_weights(directory + f'/weights_{model_name}_{int(time.time())}.h5')
+    model.model.save_weights(f'../data/{mind_type}/weights_{model_name}_{int(time.time())}.h5')
 
     post_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
     print(f'\n\nPost-train evaluation results:\n{post_train_eval_res}\n\n')
-
-
-
