@@ -7,6 +7,7 @@ import sys
 import time
 from tqdm import tqdm
 import numpy as np
+import zipfile
 
 
 if __name__ == '__main__':
@@ -29,6 +30,8 @@ if __name__ == '__main__':
     # valid_behaviors_file = directory + 'dev/behaviors.tsv'
     valid_news_file = f'../data/demo/MINDdemo_dev/news.tsv'
     valid_behaviors_file = f'../data/demo/MINDdemo_dev/behaviors.tsv'
+    test_news_file = directory + 'test/news.tsv'
+    test_behaviors_file = directory + 'test/behaviors.tsv'
 
     hparams = prepare_hparams(
         yaml_file=yaml_file,
@@ -48,19 +51,34 @@ if __name__ == '__main__':
 
     model = NAMLModel(hparams, MINDAllIterator, seed=seed)
 
-    # model.fit(
-    #     train_news_file=train_news_file,
-    #     train_behaviors_file=train_behaviors_file,
-    #     valid_news_file=valid_news_file,
-    #     valid_behaviors_file=valid_behaviors_file
-    # )
+    model.fit(
+        train_news_file=train_news_file,
+        train_behaviors_file=train_behaviors_file,
+        valid_news_file=valid_news_file,
+        valid_behaviors_file=valid_behaviors_file,
+        test_news_file=test_news_file,
+        test_behaviors_file=test_behaviors_file,
+        step_limit=100
+    )
 
     time_str = int(time.time())
     model_path = f'../models/weights_naml_{time_str}'
     model.save(model_path)
     print(f'Saved model to {model_path}')
 
-    # model2 = NAMLModel(hparams, MINDAllIterator, seed=seed)
-    model.load(model_path)
-    pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
-    print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
+    print('Running fast evaluation for prediction.txt ...')
+    group_impr_indexes, group_labels, group_preds = model.run_fast_eval(
+        news_filename=test_news_file,
+        behaviors_file=test_behaviors_file
+    )
+
+    with open('./prediction.txt', 'w') as f:
+        for impr_index, preds in tqdm(zip(group_impr_indexes, group_preds)):
+            impr_index += 1
+            pred_rank = (np.argsort(np.argsort(preds)[::-1]) + 1).tolist()
+            pred_rank = '[' + ','.join([str(i) for i in pred_rank]) + ']'
+            f.write(' '.join([str(impr_index), pred_rank])+ '\n')
+
+    f = zipfile.ZipFile(f'./prediction.zip', 'w', zipfile.ZIP_DEFLATED)
+    f.write('./prediction.txt', arcname='prediction.txt')
+    f.close()

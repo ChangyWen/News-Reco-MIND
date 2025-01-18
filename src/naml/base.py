@@ -238,15 +238,7 @@ class BaseModel:
             train_end = time.time()
             train_time = train_end - train_start
 
-            # if self.hparams.save_model and epoch % self.hparams.save_epoch == 0:
-            #     time_str = int(time.time())
-            #     model_path = f'../models/model_{time_str}.h5'
-            #     scorer_path = f'../models/scorer_{time_str}.h5'
-            #     self.model.save_weights(model_path)
-            #     self.scorer.save_weights(scorer_path)
-            #     print(f'\n\nSaved model to {model_path} and {scorer_path}\n\n')
-
-            eval_start = time.time()
+            # eval_start = time.time()
 
             train_info = ",".join(
                 [
@@ -255,45 +247,50 @@ class BaseModel:
                 ]
             )
 
-            eval_res = self.run_eval(valid_news_file, valid_behaviors_file)
-            eval_info = ", ".join(
-                [
-                    str(item[0]) + ":" + str(item[1])
-                    for item in sorted(eval_res.items(), key=lambda x: x[0])
-                ]
-            )
-            if test_news_file is not None:
-                test_res = self.run_eval(test_news_file, test_behaviors_file)
-                test_info = ", ".join(
-                    [
-                        str(item[0]) + ":" + str(item[1])
-                        for item in sorted(test_res.items(), key=lambda x: x[0])
-                    ]
-                )
-            eval_end = time.time()
-            eval_time = eval_end - eval_start
+            # eval_res = self.run_eval(valid_news_file, valid_behaviors_file)
+            # eval_info = ", ".join(
+            #     [
+            #         str(item[0]) + ":" + str(item[1])
+            #         for item in sorted(eval_res.items(), key=lambda x: x[0])
+            #     ]
+            # )
+            # if test_news_file is not None:
+            #     test_res = self.run_eval(test_news_file, test_behaviors_file)
+            #     test_info = ", ".join(
+            #         [
+            #             str(item[0]) + ":" + str(item[1])
+            #             for item in sorted(test_res.items(), key=lambda x: x[0])
+            #         ]
+            #     )
+            # eval_end = time.time()
+            # eval_time = eval_end - eval_start
 
             if test_news_file is not None:
                 print(
                     "at epoch {0:d}".format(epoch)
                     + "\ntrain info: "
                     + train_info
-                    + "\neval info: "
-                    + eval_info
-                    + "\ntest info: "
-                    + test_info
+                    # + "\neval info: "
+                    # + eval_info
+                    # + "\ntest info: "
+                    # + test_info
                 )
             else:
                 print(
                     "at epoch {0:d}".format(epoch)
                     + "\ntrain info: "
                     + train_info
-                    + "\neval info: "
-                    + eval_info
+                    # + "\neval info: "
+                    # + eval_info
                 )
+            # print(
+            #     "at epoch {0:d} , train time: {1:.1f} eval time: {2:.1f}".format(
+            #         epoch, train_time, eval_time
+            #     )
+            # )
             print(
-                "at epoch {0:d} , train time: {1:.1f} eval time: {2:.1f}".format(
-                    epoch, train_time, eval_time
+                "at epoch {0:d} , train time: {1:.1f}".format(
+                    epoch, train_time
                 )
             )
 
