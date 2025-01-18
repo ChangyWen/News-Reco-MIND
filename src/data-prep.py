@@ -13,7 +13,7 @@ data_paths = {
 }
 
 if __name__ == "__main__":
-    mind_types = ['demo', 'small']
+    mind_types = ['demo', 'small', 'large']
     # download data
     for mind_type in mind_types:
         for path in data_paths[mind_type]:
