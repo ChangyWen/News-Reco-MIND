@@ -395,18 +395,14 @@ class NAMLModel(BaseModel):
 
         return model, scorer
 
+    def save(self, path):
+        self.newsencoder.save_weights(path + '_newsencoder.h5')
+        self.userencoder.save_weights(path + '_userencoder.h5')
+        self.model.save_weights(path + '_model.h5')
+        self.scorer.save_weights(path + '_scorer.h5')
 
-    def save(self, model_path, scorer_path):
-        # freeze model weights in every layer
-        print(len(self.model.layers))
-        for layer in self.model.layers:
-            layer.trainable = False
-        print(len(self.scorer.layers))
-        for layer in self.scorer.layers:
-            layer.trainable = False
-        self.model.save_weights(model_path)
-        self.scorer.save_weights(scorer_path)
-
-    def load(self, model_path, scorer_path):
-        self.model.load_weights(model_path)
-        self.scorer.load_weights(scorer_path)
+    def load(self, path):
+        self.newsencoder.load_weights(path + '_newsencoder.h5')
+        self.userencoder.load_weights(path + '_userencoder.h5')
+        self.model.load_weights(path + '_model.h5')
+        self.scorer.load_weights(path + '_scorer.h5')

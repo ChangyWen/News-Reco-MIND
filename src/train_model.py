@@ -56,12 +56,11 @@ if __name__ == '__main__':
     # )
 
     time_str = int(time.time())
-    model_path = f'../models/model_naml_{time_str}.h5'
-    scorer_path = f'../models/scorer_naml_{time_str}.h5'
-    model.save(model_path, scorer_path)
-    print(f'Saved model to {model_path} and {scorer_path}')
+    model_path = f'../models/weights_naml_{time_str}'
+    model.save(model_path)
+    print(f'Saved model to {model_path}')
 
     model2 = NAMLModel(hparams, MINDAllIterator, seed=seed)
-    model2.load(model_path, scorer_path)
+    model2.load(model_path)
     pre_train_eval_res = model2.run_eval(valid_news_file, valid_behaviors_file)
     print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')

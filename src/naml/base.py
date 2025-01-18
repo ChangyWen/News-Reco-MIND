@@ -238,13 +238,13 @@ class BaseModel:
             train_end = time.time()
             train_time = train_end - train_start
 
-            if self.hparams.save_model and epoch % self.hparams.save_epoch == 0:
-                time_str = int(time.time())
-                model_path = f'../models/model_{time_str}.h5'
-                scorer_path = f'../models/scorer_{time_str}.h5'
-                self.model.save_weights(model_path)
-                self.scorer.save_weights(scorer_path)
-                print(f'\n\nSaved model to {model_path} and {scorer_path}\n\n')
+            # if self.hparams.save_model and epoch % self.hparams.save_epoch == 0:
+            #     time_str = int(time.time())
+            #     model_path = f'../models/model_{time_str}.h5'
+            #     scorer_path = f'../models/scorer_{time_str}.h5'
+            #     self.model.save_weights(model_path)
+            #     self.scorer.save_weights(scorer_path)
+            #     print(f'\n\nSaved model to {model_path} and {scorer_path}\n\n')
 
             eval_start = time.time()
 
