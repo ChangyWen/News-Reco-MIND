@@ -28,8 +28,8 @@ if __name__ == '__main__':
     train_behaviors_file = directory + 'train/behaviors.tsv'
     # valid_news_file = directory + 'dev/news.tsv'
     # valid_behaviors_file = directory + 'dev/behaviors.tsv'
-    valid_news_file = f'../data/demo/MINDdemo_dev/news.tsv'
-    valid_behaviors_file = f'../data/demo/MINDdemo_dev/behaviors.tsv'
+    valid_news_file = f'../data/demo/MINDdemo_dev/news.tsv' # dummy
+    valid_behaviors_file = f'../data/demo/MINDdemo_dev/behaviors.tsv' # dummy
     test_news_file = directory + 'test/news.tsv'
     test_behaviors_file = directory + 'test/behaviors.tsv'
 
@@ -43,8 +43,6 @@ if __name__ == '__main__':
         batch_size=batch_size,
         epochs=epochs,
         body_size=50,
-        save_model=True,
-        save_epoch=1,
         show_step=1000
     )
     print(hparams)
@@ -58,7 +56,6 @@ if __name__ == '__main__':
         valid_behaviors_file=valid_behaviors_file,
         test_news_file=test_news_file,
         test_behaviors_file=test_behaviors_file,
-        step_limit=100
     )
 
     time_str = int(time.time())
