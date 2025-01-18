@@ -4,7 +4,7 @@
 import numpy as np
 import tensorflow.keras as keras
 from tensorflow.keras import layers
-
+from keras.models import load_model
 
 from .base import BaseModel
 from .attlayer2 import AttLayer2
@@ -394,3 +394,11 @@ class NAMLModel(BaseModel):
         )
 
         return model, scorer
+
+    def save(self, model_path, scorer_path):
+        self.model.save(model_path)
+        self.scorer.save(scorer_path)
+
+    def load(self, model_path, scorer_path):
+        self.model = load_model(model_path)
+        self.scorer = load_model(scorer_path)

@@ -7,18 +7,16 @@ import sys
 import time
 from tqdm import tqdm
 import numpy as np
-from keras.models import load_model
 
 
 if __name__ == '__main__':
     mind_type = sys.argv[1]
     epochs = int(sys.argv[2]) if len(sys.argv) > 2 else 10
     batch_size = int(sys.argv[3]) if len(sys.argv) > 3 else 32
-    model_name = sys.argv[4] if len(sys.argv) > 4 else 'nrms'
-    seed = int(sys.argv[5]) if len(sys.argv) > 5 else 42
+    seed = int(sys.argv[4]) if len(sys.argv) > 4 else 42
 
     directory = f'../data/{mind_type}/MIND{mind_type}_'
-    yaml_file = directory + f'utils/{model_name}.yaml'
+    yaml_file = directory + f'utils/naml.yaml'
     wordEmb_file = directory + 'utils/embedding.npy'
     wordDict_file = directory + 'utils/word_dict.pkl'
     userDict_file = directory + 'utils/uid2index.pkl'
@@ -48,25 +46,24 @@ if __name__ == '__main__':
     )
     print(hparams)
 
-    model = None
-    if model_name == 'nrms':
-        model = NRMSModel(hparams, MINDAllIterator, seed=seed)
-    elif model_name == 'naml':
-        model = NAMLModel(hparams, MINDAllIterator, seed=seed)
-    else:
-        raise ValueError(f'Model {model_name} not supported')
+    model = NAMLModel(hparams, MINDAllIterator, seed=seed)
 
-    model.fit(
-        train_news_file=train_news_file,
-        train_behaviors_file=train_behaviors_file,
-        valid_news_file=valid_news_file,
-        valid_behaviors_file=valid_behaviors_file
-    )
+    pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
+    print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
 
-    model_path = f'../models/model_{model_name}_{int(time.time())}.h5'
-    model.model.save(model_path)
-    print(f'Saved model to path {model_path}')
+    # model.fit(
+    #     train_news_file=train_news_file,
+    #     train_behaviors_file=train_behaviors_file,
+    #     valid_news_file=valid_news_file,
+    #     valid_behaviors_file=valid_behaviors_file
+    # )
 
-    model2 = load_model(model_path)
+    model_path = f'../models/model_naml_{int(time.time())}.h5'
+    scorer_path = f'../models/scorer_naml_{int(time.time())}.h5'
+    model.save(model_path, scorer_path)
+    print(f'Saved model to {model_path} and {scorer_path}')
+
+    model2 = NAMLModel(hparams, MINDAllIterator, seed=seed)
+    model2.load(model_path, scorer_path)
     pre_train_eval_res = model2.run_eval(valid_news_file, valid_behaviors_file)
     print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
