@@ -56,15 +56,15 @@ if __name__ == '__main__':
     else:
         raise ValueError(f'Model {model_name} not supported')
 
-    model.fit(
-        train_news_file=train_news_file,
-        train_behaviors_file=train_behaviors_file,
-        valid_news_file=valid_news_file,
-        valid_behaviors_file=valid_behaviors_file
-    )
-    # weights_path = f'../models/weights_{model_name}_{int(time.time())}.h5'
-    # model.model.save_weights(weights_path)
-    # print(f'Saved model weights to path {weights_path}')
+    pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
+    print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
+
+    # model.fit(
+    #     train_news_file=train_news_file,
+    #     train_behaviors_file=train_behaviors_file,
+    #     valid_news_file=valid_news_file,
+    #     valid_behaviors_file=valid_behaviors_file
+    # )
 
     model_path = f'../models/model_{model_name}_{int(time.time())}.h5'
     model.save(model_path)
