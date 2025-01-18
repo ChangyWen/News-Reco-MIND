@@ -53,8 +53,8 @@ if __name__ == '__main__':
     else:
         raise ValueError(f'Model {model_name} not supported')
 
-    pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
-    print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
+    # pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
+    # print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
 
     model.fit(
         train_news_file=train_news_file,
@@ -64,8 +64,8 @@ if __name__ == '__main__':
     )
     model.model.save_weights(f'../data/{mind_type}/weights_{model_name}_{int(time.time())}.h5')
 
-    post_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
-    print(f'\n\nPost-train evaluation results:\n{post_train_eval_res}\n\n')
+    # post_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
+    # print(f'\n\nPost-train evaluation results:\n{post_train_eval_res}\n\n')
 
 # step 2000 , total_loss: 1.4525, data_loss: 1.1757
 # step 3000 , total_loss: 1.4291, data_loss: 1.4575
