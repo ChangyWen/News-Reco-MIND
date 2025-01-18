@@ -7,7 +7,7 @@ import numpy as np
 from tqdm import tqdm
 import tensorflow as tf
 from tensorflow.compat.v1 import keras
-from tensorboard import SummaryWriter
+from tensorboardX import SummaryWriter
 
 from recommenders.models.deeprec.deeprec_utils import cal_metric
 
