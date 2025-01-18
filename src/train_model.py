@@ -40,7 +40,8 @@ if __name__ == '__main__':
         body_size=body_size,
         epochs=epochs,
         save_model=True,
-        save_epoch=1
+        save_epoch=1,
+        show_step=1000
     )
     print(hparams)
 
