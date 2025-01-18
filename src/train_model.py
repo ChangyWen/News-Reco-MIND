@@ -38,7 +38,9 @@ if __name__ == '__main__':
         subvertDict_file=subvertDict_file,
         batch_size=batch_size,
         body_size=body_size,
-        epochs=epochs
+        epochs=epochs,
+        save_model=True,
+        save_epoch=1
     )
     print(hparams)
 
