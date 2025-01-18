@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     model = NRMSModel(hparams, MINDAllIterator, seed=seed)
 
-    pre_train_eval_res = model.run_eval(news_filename=valid_news_file, behaviors_file=valid_behaviors_file)
+    pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
     print('-' * 30)
     print('Pre-train evaluation results:')
     print(pre_train_eval_res)
@@ -47,7 +47,7 @@ if __name__ == '__main__':
         valid_behaviors_file=valid_behaviors_file
     )
 
-    post_train_eval_res = model.run_eval(news_filename=valid_news_file, behaviors_file=valid_behaviors_file)
+    post_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
     print('-' * 30)
     print('Post-train evaluation results:')
     print(post_train_eval_res)
