@@ -36,7 +36,6 @@ if __name__ == '__main__':
         vertDict_file=vertDict_file,
         subvertDict_file=subvertDict_file,
         batch_size=batch_size,
-        body_size=body_size,
         epochs=epochs,
         body_size=50,
         save_model=True,
