@@ -1,14 +1,11 @@
 from recommenders.models.newsrec.newsrec_utils import prepare_hparams
 from recommenders.models.newsrec.io.mind_all_iterator import MINDAllIterator
-from recommenders.models.newsrec.models.nrms import NRMSModel
-# from recommenders.models.newsrec.models.naml import NAMLModel
 from naml.naml import NAMLModel
 import sys
 import time
 from tqdm import tqdm
 import numpy as np
 import zipfile
-
 
 if __name__ == '__main__':
     mind_type = sys.argv[1]
@@ -48,20 +45,26 @@ if __name__ == '__main__':
     )
     print(hparams)
 
-    model = None
-    if model_name == 'nrms':
-        model = NRMSModel(hparams, MINDAllIterator, seed=seed)
-    elif model_name == 'naml':
-        model = NAMLModel(hparams, MINDAllIterator, seed=seed)
-    else:
-        raise ValueError(f'Model {model_name} not supported')
+    model = NAMLModel(hparams, MINDAllIterator, seed=seed)
+    # eval info: group_auc:0.5782, mean_mrr:0.242, ndcg@10:0.3315, ndcg@5:0.2675
+    model.model.load_weights('../models/weights_naml_1737207495.h5')
 
-    model.fit(
-        train_news_file=train_news_file,
-        train_behaviors_file=train_behaviors_file,
-        valid_news_file=valid_news_file,
-        valid_behaviors_file=valid_behaviors_file
-    )
-    model_path = f'../models/weights_{model_name}_{int(time.time())}.h5'
-    model.model.save_weights(model_path)
-    print(f'Saved model to path {model_path}')
+    pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
+    print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
+
+    # print('Running fast evaluation for prediction.txt ...')
+    # group_impr_indexes, group_labels, group_preds = model.run_fast_eval(
+    #     news_filename=valid_news_file,
+    #     behaviors_file=valid_behaviors_file
+    # )
+
+    # with open('./prediction.txt', 'w') as f:
+    #     for impr_index, preds in tqdm(zip(group_impr_indexes, group_preds)):
+    #         impr_index += 1
+    #         pred_rank = (np.argsort(np.argsort(preds)[::-1]) + 1).tolist()
+    #         pred_rank = '[' + ','.join([str(i) for i in pred_rank]) + ']'
+    #         f.write(' '.join([str(impr_index), pred_rank])+ '\n')
+
+    # f = zipfile.ZipFile(f'./prediction.zip', 'w', zipfile.ZIP_DEFLATED)
+    # f.write('./prediction.txt', arcname='prediction.txt')
+    # f.close()
