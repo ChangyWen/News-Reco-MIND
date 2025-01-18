@@ -58,8 +58,9 @@ if __name__ == '__main__':
     #     valid_behaviors_file=valid_behaviors_file
     # )
 
-    model_path = f'../models/model_naml_{int(time.time())}.h5'
-    scorer_path = f'../models/scorer_naml_{int(time.time())}.h5'
+    time_str = int(time.time())
+    model_path = f'../models/model_naml_{time_str}.h5'
+    scorer_path = f'../models/scorer_naml_{time_str}.h5'
     model.save(model_path, scorer_path)
     print(f'Saved model to {model_path} and {scorer_path}')
 
