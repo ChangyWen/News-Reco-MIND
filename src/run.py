@@ -2,12 +2,13 @@ from recommenders.models.newsrec.newsrec_utils import prepare_hparams
 from recommenders.models.newsrec.io.mind_all_iterator import MINDAllIterator
 from recommenders.models.newsrec.models.nrms import NRMSModel
 import sys
+import time
 
 if __name__ == '__main__':
     mind_type = sys.argv[1]
-    epochs = sys.argv[2] if len(sys.argv) > 2 else 2
-    body_size = sys.argv[3] if len(sys.argv) > 3 else 8
-    seed = sys.argv[4] if len(sys.argv) > 4 else 42
+    epochs = int(sys.argv[2]) if len(sys.argv) > 2 else 2
+    body_size = int(sys.argv[3]) if len(sys.argv) > 3 else 8
+    seed = int(sys.argv[4]) if len(sys.argv) > 4 else 42
     model = sys.argv[5] if len(sys.argv) > 5 else 'nrms'
 
     directory = '../data/{}/'.format(mind_type)
@@ -30,15 +31,15 @@ if __name__ == '__main__':
         userDict_file=userDict_file,
         vertDict_file=vertDict_file,
         subvertDict_file=subvertDict_file,
-        body_size=8,
-        epochs=2
+        body_size=body_size,
+        epochs=epochs
     )
     print(hparams)
 
     model = NRMSModel(hparams, MINDAllIterator, seed=seed)
 
     pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
-    print(f'\n\nPre-train evaluation results: {pre_train_eval_res}\n\n')
+    print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
 
     model.fit(
         train_news_file=train_news_file,
@@ -46,10 +47,10 @@ if __name__ == '__main__':
         valid_news_file=valid_news_file,
         valid_behaviors_file=valid_behaviors_file
     )
-    model.model.save_weights(directory + '/weights.h5')
+    model.model.save_weights(directory + f'/weights_{int(time.time())}.h5')
 
     post_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
-    print(f'\n\nPost-train evaluation results: {post_train_eval_res}\n\n')
+    print(f'\n\nPost-train evaluation results:\n{post_train_eval_res}\n\n')
 
 
 
