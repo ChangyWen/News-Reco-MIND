@@ -5,6 +5,9 @@ from recommenders.models.newsrec.models.nrms import NRMSModel
 from naml.naml import NAMLModel
 import sys
 import time
+from tqdm import tqdm
+import numpy as np
+
 
 if __name__ == '__main__':
     mind_type = sys.argv[1]
@@ -62,6 +65,18 @@ if __name__ == '__main__':
         valid_behaviors_file=valid_behaviors_file
     )
     model.model.save_weights(f'../models/weights_{model_name}_{int(time.time())}.h5')
+
+    group_impr_indexes, group_labels, group_preds = model.run_fast_eval(
+        news_filename='../data/large/MINDlarge_test/news.tsv',
+        behaviors_file='../data/large/MINDlarge_test/behaviors.tsv'
+    )
+
+    with open('./prediction.txt', 'w') as f:
+        for impr_index, preds in tqdm(zip(group_impr_indexes, group_preds)):
+            impr_index += 1
+            pred_rank = (np.argsort(np.argsort(preds)[::-1]) + 1).tolist()
+            pred_rank = '[' + ','.join([str(i) for i in pred_rank]) + ']'
+            f.write(' '.join([str(impr_index), pred_rank])+ '\n')
 
     # post_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
     # print(f'\n\nPost-train evaluation results:\n{post_train_eval_res}\n\n')
