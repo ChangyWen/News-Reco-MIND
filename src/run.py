@@ -54,7 +54,7 @@ if __name__ == '__main__':
         valid_news_file=valid_news_file,
         valid_behaviors_file=valid_behaviors_file
     )
-    model.model.save_weights(directory + f'/weights_{int(time.time())}.h5')
+    model.model.save_weights(directory + f'/weights_{model_name}_{int(time.time())}.h5')
 
     post_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
     print(f'\n\nPost-train evaluation results:\n{post_train_eval_res}\n\n')
