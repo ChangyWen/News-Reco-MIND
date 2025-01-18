@@ -22,8 +22,10 @@ if __name__ == '__main__':
 
     train_news_file = directory + 'train/news.tsv'
     train_behaviors_file = directory + 'train/behaviors.tsv'
-    valid_news_file = directory + 'dev/news.tsv'
-    valid_behaviors_file = directory + 'dev/behaviors.tsv'
+    # valid_news_file = directory + 'dev/news.tsv'
+    # valid_behaviors_file = directory + 'dev/behaviors.tsv'
+    valid_news_file = f'../data/demo/MINDdemo_dev/news.tsv'
+    valid_behaviors_file = f'../data/demo/MINDdemo_dev/behaviors.tsv'
 
     hparams = prepare_hparams(
         yaml_file=yaml_file,
