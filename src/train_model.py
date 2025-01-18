@@ -64,7 +64,9 @@ if __name__ == '__main__':
         valid_news_file=valid_news_file,
         valid_behaviors_file=valid_behaviors_file
     )
-    model.model.save_weights(f'../models/weights_{model_name}_{int(time.time())}.h5')
+    model_path = f'../models/weights_{model_name}_{int(time.time())}.h5'
+    model.model.save_weights(model_path)
+    print(f'Saved model to path {model_path}')
 
     group_impr_indexes, group_labels, group_preds = model.run_fast_eval(
         news_filename='../data/large/MINDlarge_test/news.tsv',
