@@ -7,6 +7,7 @@ import sys
 import time
 from tqdm import tqdm
 import numpy as np
+import zipfile
 
 
 if __name__ == '__main__':
@@ -55,9 +56,6 @@ if __name__ == '__main__':
     else:
         raise ValueError(f'Model {model_name} not supported')
 
-    # pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
-    # print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
-
     model.fit(
         train_news_file=train_news_file,
         train_behaviors_file=train_behaviors_file,
@@ -80,5 +78,6 @@ if __name__ == '__main__':
             pred_rank = '[' + ','.join([str(i) for i in pred_rank]) + ']'
             f.write(' '.join([str(impr_index), pred_rank])+ '\n')
 
-    # post_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
-    # print(f'\n\nPost-train evaluation results:\n{post_train_eval_res}\n\n')
+    f = zipfile.ZipFile(f'./prediction.zip', 'w', zipfile.ZIP_DEFLATED)
+    f.write('./prediction.txt', arcname='prediction.txt')
+    f.close()
