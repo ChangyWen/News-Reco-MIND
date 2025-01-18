@@ -6,6 +6,7 @@ import time
 from tqdm import tqdm
 import numpy as np
 import zipfile
+from keras.models import load_model
 
 if __name__ == '__main__':
     mind_type = sys.argv[1]

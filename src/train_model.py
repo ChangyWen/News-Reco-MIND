@@ -7,7 +7,7 @@ import sys
 import time
 from tqdm import tqdm
 import numpy as np
-import zipfile
+from keras.models import load_model
 
 
 if __name__ == '__main__':
@@ -62,6 +62,14 @@ if __name__ == '__main__':
         valid_news_file=valid_news_file,
         valid_behaviors_file=valid_behaviors_file
     )
-    model_path = f'../models/weights_{model_name}_{int(time.time())}.h5'
-    model.model.save_weights(model_path)
+    # weights_path = f'../models/weights_{model_name}_{int(time.time())}.h5'
+    # model.model.save_weights(weights_path)
+    # print(f'Saved model weights to path {weights_path}')
+
+    model_path = f'../models/model_{model_name}_{int(time.time())}.h5'
+    model.save(model_path)
     print(f'Saved model to path {model_path}')
+
+    model2 = load_model(model_path)
+    pre_train_eval_res = model2.run_eval(valid_news_file, valid_behaviors_file)
+    print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
