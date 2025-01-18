@@ -66,11 +66,3 @@ if __name__ == '__main__':
 
     # post_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
     # print(f'\n\nPost-train evaluation results:\n{post_train_eval_res}\n\n')
-
-# step 2000 , total_loss: 1.4525, data_loss: 1.1757
-# step 3000 , total_loss: 1.4291, data_loss: 1.4575
-# step 4000 , total_loss: 1.4128, data_loss: 1.3653
-# step 5000 , total_loss: 1.3987, data_loss: 1.2809
-# step 6000 , total_loss: 1.3875, data_loss: 1.3230
-# step 7000 , total_loss: 1.3793, data_loss: 1.2980
-# step 9000 , total_loss: 1.3663, data_loss: 1.2288

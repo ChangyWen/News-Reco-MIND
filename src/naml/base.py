@@ -14,7 +14,7 @@ from recommenders.models.deeprec.deeprec_utils import cal_metric
 tf.compat.v1.disable_eager_execution()
 tf.compat.v1.experimental.output_all_intermediates(True)
 __all__ = ["BaseModel"]
-summary_writer = SummaryWriter(log_dir=f'../data/{int(time.time())}')
+summary_writer = SummaryWriter(log_dir=f'../logs/{int(time.time())}')
 
 class BaseModel:
     """Basic class of models
