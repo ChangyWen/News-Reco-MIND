@@ -6,8 +6,8 @@ import tensorflow.keras as keras
 from tensorflow.keras import layers
 
 
-from base import BaseModel
-from attlayer2 import AttLayer2
+from .base import BaseModel
+from .attlayer2 import AttLayer2
 
 __all__ = ["NAMLModel"]
 
