@@ -60,7 +60,7 @@ if __name__ == '__main__':
     model.save(model_path)
     print(f'Saved model to {model_path}')
 
-    model2 = NAMLModel(hparams, MINDAllIterator, seed=seed)
-    model2.load(model_path)
-    pre_train_eval_res = model2.run_eval(valid_news_file, valid_behaviors_file)
+    # model2 = NAMLModel(hparams, MINDAllIterator, seed=seed)
+    model.load(model_path)
+    pre_train_eval_res = model.run_eval(valid_news_file, valid_behaviors_file)
     print(f'\n\nPre-train evaluation results:\n{pre_train_eval_res}\n\n')
