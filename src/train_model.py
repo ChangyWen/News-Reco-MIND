@@ -76,3 +76,4 @@ if __name__ == '__main__':
     f = zipfile.ZipFile(f'./prediction_{time_str}.zip', 'w', zipfile.ZIP_DEFLATED)
     f.write(f'./prediction_{time_str}.txt', arcname=f'prediction_{time_str}.txt')
     f.close()
+    print(f'Saved prediction to ./prediction_{time_str}.zip')
