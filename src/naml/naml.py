@@ -5,6 +5,7 @@ import numpy as np
 import tensorflow.keras as keras
 from tensorflow.keras import layers
 from keras.models import load_model
+from utils.utils import unfreeze
 
 from .base import BaseModel
 from .attlayer2 import AttLayer2
@@ -396,13 +397,21 @@ class NAMLModel(BaseModel):
         return model, scorer
 
     def save(self, path):
-        self.newsencoder.save_weights(path + '_newsencoder.h5')
-        self.userencoder.save_weights(path + '_userencoder.h5')
-        self.model.save_weights(path + '_model.h5')
-        self.scorer.save_weights(path + '_scorer.h5')
+        # unfreeze(self.newsencoder)
+        # unfreeze(self.userencoder)
+        # unfreeze(self.model)
+        # unfreeze(self.scorer)
+        self.newsencoder.save_weights(path + '_newsencoder.tf')
+        self.userencoder.save_weights(path + '_userencoder.tf')
+        self.model.save_weights(path + '_model.tf')
+        self.scorer.save_weights(path + '_scorer.tf')
 
     def load(self, path):
-        self.newsencoder.load_weights(path + '_newsencoder.h5')
-        self.userencoder.load_weights(path + '_userencoder.h5')
-        self.model.load_weights(path + '_model.h5')
-        self.scorer.load_weights(path + '_scorer.h5')
+        # unfreeze(self.newsencoder)
+        # unfreeze(self.userencoder)
+        # unfreeze(self.model)
+        # unfreeze(self.scorer)
+        self.newsencoder.load_weights(path + '_newsencoder.tf')
+        self.userencoder.load_weights(path + '_userencoder.tf')
+        self.model.load_weights(path + '_model.tf')
+        self.scorer.load_weights(path + '_scorer.tf')
