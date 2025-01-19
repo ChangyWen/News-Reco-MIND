@@ -30,7 +30,8 @@ class BaseModel:
     def __init__(
         self,
         hparams,
-        iterator_creator,
+        iterator_creator_train,
+        iterator_creator_test,
         seed=None,
     ):
         """Initializing the model. Create common logics which are needed by all deeprec models, such as loss function,
@@ -46,12 +47,12 @@ class BaseModel:
         tf.compat.v1.set_random_seed(seed)
         np.random.seed(seed)
 
-        self.train_iterator = iterator_creator(
+        self.train_iterator = iterator_creator_train(
             hparams,
             hparams.npratio,
             col_spliter="\t",
         )
-        self.test_iterator = iterator_creator(
+        self.test_iterator = iterator_creator_test(
             hparams,
             col_spliter="\t",
         )

@@ -1,7 +1,6 @@
 from recommenders.models.newsrec.newsrec_utils import prepare_hparams
-from recommenders.models.newsrec.io.mind_all_iterator import MINDAllIterator
-from recommenders.models.newsrec.models.nrms import NRMSModel
-# from recommenders.models.newsrec.models.naml import NAMLModel
+from recommenders.models.newsrec.io.mind_all_iterator import MINDAllIterator as MINDAllIterator_train
+from naml.iterator import MINDAllIterator as MINDAllIterator_test
 from naml.naml import NAMLModel
 import sys
 import time
@@ -47,16 +46,16 @@ if __name__ == '__main__':
     )
     print(hparams)
 
-    model = NAMLModel(hparams, MINDAllIterator, seed=seed)
+    model = NAMLModel(hparams, MINDAllIterator_train, MINDAllIterator_test, seed=seed)
 
-    model.fit(
-        train_news_file=train_news_file,
-        train_behaviors_file=train_behaviors_file,
-        valid_news_file=valid_news_file,
-        valid_behaviors_file=valid_behaviors_file,
-        test_news_file=test_news_file,
-        test_behaviors_file=test_behaviors_file,
-    )
+    # model.fit(
+    #     train_news_file=train_news_file,
+    #     train_behaviors_file=train_behaviors_file,
+    #     valid_news_file=valid_news_file,
+    #     valid_behaviors_file=valid_behaviors_file,
+    #     test_news_file=test_news_file,
+    #     test_behaviors_file=test_behaviors_file,
+    # )
 
     time_str = int(time.time())
     model_path = f'../models/weights_naml_{time_str}'
