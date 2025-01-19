@@ -66,13 +66,13 @@ if __name__ == '__main__':
         behaviors_file=test_behaviors_file
     )
 
-    with open('./prediction.txt', 'w') as f:
+    with open(f'./prediction_{time_str}.txt', 'w') as f:
         for impr_index, preds in tqdm(zip(group_impr_indexes, group_preds)):
             impr_index += 1
             pred_rank = (np.argsort(np.argsort(preds)[::-1]) + 1).tolist()
             pred_rank = '[' + ','.join([str(i) for i in pred_rank]) + ']'
             f.write(' '.join([str(impr_index), pred_rank])+ '\n')
 
-    f = zipfile.ZipFile(f'./prediction.zip', 'w', zipfile.ZIP_DEFLATED)
-    f.write('./prediction.txt', arcname='prediction.txt')
+    f = zipfile.ZipFile(f'./prediction_{time_str}.zip', 'w', zipfile.ZIP_DEFLATED)
+    f.write(f'./prediction_{time_str}.txt', arcname=f'prediction_{time_str}.txt')
     f.close()
